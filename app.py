@@ -1,10 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 import joblib
 
 app = Flask(__name__)
+
+@app.route('/form')
+def mlq():
+    return render_template('form.html')
 
 preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 img_height, img_width = 224, 224
