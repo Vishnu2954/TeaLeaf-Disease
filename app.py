@@ -7,7 +7,7 @@ import joblib
 app = Flask(__name__)
 
 @app.route('/form')
-def mlq():
+def form():
     return render_template('form.html')
 
 preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
