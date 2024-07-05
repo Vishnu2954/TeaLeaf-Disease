@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 import joblib
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 
 @app.route('/form')
 def form():
