@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, render_template
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
+from fastapi.templating import Jinja2Templates
 from PIL import Image
 import numpy as np
 import tensorflow as tf
@@ -6,11 +7,9 @@ import joblib
 import logging
 import time
 
-app = Flask(__name__, template_folder='.')
+app = FastAPI()
 
-@app.route('/form')
-def form():
-    return render_template('form.html')
+templates = Jinja2Templates(directory=".")
 
 preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 img_height, img_width = 224, 224
@@ -23,8 +22,11 @@ global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 svm_model = joblib.load('svm_mnv2.joblib')
 label_encoder = joblib.load('label_encoder.joblib')
 
-class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Healthy', 'Red leaf spot', 'White spot']
+class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Healthy', 'Red leaf spot',
+               'White spot']
+
 logging.basicConfig(level=logging.INFO)
+
 
 def extract_features(img):
     start_time = time.time()
@@ -37,26 +39,23 @@ def extract_features(img):
     features = global_average_layer(features).numpy()
     end_time = time.time()
 
-    app.logger.info(f"Image preprocessing time: {features_start_time - start_time} seconds")
-    app.logger.info(f"Feature extraction time: {end_time - features_start_time} seconds")
-    app.logger.info(f"Total extraction time: {end_time - start_time} seconds")
-    
+    logging.info(f"Image preprocessing time: {features_start_time - start_time} seconds")
+    logging.info(f"Feature extraction time: {end_time - features_start_time} seconds")
+    logging.info(f"Total extraction time: {end_time - start_time} seconds")
+
     return features
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'file' not in request.files:
-        logging.error("No file part in the request")
-        return jsonify({'error': 'No file part in the request'}), 400
 
-    file = request.files['file']
-    if file.filename == '':
-        logging.error("No file selected for uploading")
-        return jsonify({'error': 'No file selected for uploading'}), 400
+@app.get('/form')
+async def form(request: Request):
+    return templates.TemplateResponse("form.html", {"request": request})
 
+
+@app.post('/predict')
+async def predict(file: UploadFile = File(...)):
     try:
         logging.info("Opening image")
-        img = Image.open(file)
+        img = Image.open(file.file)
         logging.info("Extracting features")
         features = extract_features(img)
         logging.info("Making prediction")
@@ -64,10 +63,12 @@ def predict():
         predicted_index = int(prediction[0])
         class_name = class_names[predicted_index]
         logging.info(f"Prediction complete: {class_name}")
-        return jsonify({'predicted_class': class_name}), 200
+        return {'predicted_class': class_name}
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == '__main__':
-     app.run(debug=False, host='0.0.0.0', port=5000)
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=8000)
