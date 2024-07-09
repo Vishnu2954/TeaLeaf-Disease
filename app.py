@@ -1,15 +1,20 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Request
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import HTMLResponse
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 import joblib
 import logging
 import time
+import uvicorn
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory=".")
+@app.get("/form")
+async def form():
+    with open("form.html", "r", encoding="utf-8") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content)
 
 preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
 img_height, img_width = 224, 224
@@ -26,7 +31,6 @@ class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gr
                'White spot']
 
 logging.basicConfig(level=logging.INFO)
-
 
 def extract_features(img):
     start_time = time.time()
@@ -45,12 +49,6 @@ def extract_features(img):
 
     return features
 
-
-@app.get('/form')
-async def form(request: Request):
-    return templates.TemplateResponse("form.html", {"request": request})
-
-
 @app.post('/predict')
 async def predict(file: UploadFile = File(...)):
     try:
@@ -68,7 +66,5 @@ async def predict(file: UploadFile = File(...)):
         logging.error(f"Error during prediction: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
-if __name__ == '__main__':
-    import uvicorn
+if __name__ == "__main__":
     uvicorn.run(app)
