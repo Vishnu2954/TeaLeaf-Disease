@@ -4,4 +4,4 @@ Pillow
 numpy
 joblib
 uvicorn
-scikit-learn
+scikit-learn==1.4.2
