@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 import joblib
 import logging
+import time
 
 app = Flask(__name__, template_folder='.')
 
@@ -24,15 +25,22 @@ label_encoder = joblib.load('label_encoder.joblib')
 
 class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Healthy', 'Red leaf spot', 'White spot']
 logging.basicConfig(level=logging.INFO)
+
 def extract_features(img):
-    logging.info("Starting feature extraction")
+    start_time = time.time()
     img_array = np.array(img.resize((img_height, img_width)))
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
 
+    features_start_time = time.time()
     features = base_model.predict(img_array)
     features = global_average_layer(features).numpy()
-    logging.info("Finished feature extraction")
+    end_time = time.time()
+
+    app.logger.info(f"Image preprocessing time: {features_start_time - start_time} seconds")
+    app.logger.info(f"Feature extraction time: {end_time - features_start_time} seconds")
+    app.logger.info(f"Total extraction time: {end_time - start_time} seconds")
+    
     return features
 
 @app.route('/predict', methods=['POST'])
