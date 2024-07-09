@@ -1,6 +1,8 @@
 fastapi
-pillow
-numpy
 tensorflow
+Pillow
+numpy
 joblib
+uvicorn
 scikit-learn
+python-dotenv
