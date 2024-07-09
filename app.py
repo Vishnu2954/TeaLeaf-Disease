@@ -3,6 +3,7 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 import joblib
+import logging
 
 app = Flask(__name__, template_folder='.')
 
@@ -22,34 +23,43 @@ svm_model = joblib.load('svm_mnv2.joblib')
 label_encoder = joblib.load('label_encoder.joblib')
 
 class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Healthy', 'Red leaf spot', 'White spot']
-
+logging.basicConfig(level=logging.INFO)
 def extract_features(img):
+    logging.info("Starting feature extraction")
     img_array = np.array(img.resize((img_height, img_width)))
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
 
     features = base_model.predict(img_array)
     features = global_average_layer(features).numpy()
+    logging.info("Finished feature extraction")
     return features
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
+        logging.error("No file part in the request")
         return jsonify({'error': 'No file part in the request'}), 400
 
     file = request.files['file']
     if file.filename == '':
+        logging.error("No file selected for uploading")
         return jsonify({'error': 'No file selected for uploading'}), 400
 
     try:
+        logging.info("Opening image")
         img = Image.open(file)
+        logging.info("Extracting features")
         features = extract_features(img)
+        logging.info("Making prediction")
         prediction = svm_model.predict(features)
         predicted_index = int(prediction[0])
         class_name = class_names[predicted_index]
+        logging.info(f"Prediction complete: {class_name}")
         return jsonify({'predicted_class': class_name}), 200
     except Exception as e:
+        logging.error(f"Error during prediction: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+     app.run(debug=False, host='0.0.0.0', port=5000)
