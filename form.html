@@ -13,10 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Tealeaf Disease Classification</title>
     <style>
-         html, body {
-            overflow-x: hidden;
-        }
-        
         .nav-link {
             color: rgb(235, 235, 235);
             font-size: larger;
@@ -139,6 +135,11 @@
             color: white;
         }
 
+        #predictionResult{
+            color: white;
+            display: none; 
+            margin-top: 20px;
+        }
 
         @media (max-width: 768px) {
             .navbar-nav {
@@ -225,7 +226,7 @@
         <div class="d-flex justify-content-center">
             <div class="upload-container">
                 <p style="font-size: 24px;">Upload a Tea Leaf Image</p>
-                <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="fileInput" class="form-control" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .png">
                     <div id="imagePreviewContainer" style="display: none;">
                         <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 300px;">
@@ -235,22 +236,21 @@
                         <button type="submit">Predict</button>
                     </div>
                 </form>
-                  <div id="predictionResult" style="display: none; margin-top: 20px;">
-                    <h4>Prediction Result</h4>
-                    <p id="predictedClass"></p>
+                <div id="predictionResult">
+                    <b id="predictedClass"></b>
                 </div>
             </div>
         </div>
         <h4 class="fade-in" style="text-align: center; margin-top: 20px; font-family: 'Noto Sans', 'Roboto', Calibri;">Description</h4><br></br>
         <p>The model incorporates a Support Vector Machine learning model integrated with the MobileNetV2 transfer learning model for image feature extraction with an accuracy of around 87%.</p>
         <p> Performance of the model:</p>  
-        <img src="https://vishnu2954.github.io/TeaLeaf-Disease/images/Screenshot%202024-07-04%20195437.png" height="250px" width="1000px"> 
+        <img src="images\Screenshot 2024-07-04 195437.png" height="250px" width="1000px"> 
         <br></br><br></br>
     </div>
     <div class="footer">
         <p>COPYRIGHTS&copy2024</p>
     </div>
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const fadeInElements = document.querySelectorAll('.fade-in');
             fadeInElements.forEach((element) => {
@@ -292,7 +292,7 @@
                     if (data.error) {
                         console.error('Prediction error:', data.error);
                     } else {
-                        const predictedClass = data.predicted_class.toUpperCase();
+                        const predictedClass = data.predicted_class;
                         document.getElementById('predictedClass').innerText = predictedClass;
                         document.getElementById('predictionResult').style.display = 'block';
                     }
@@ -302,6 +302,6 @@
                 });
             });
         });
-    </script>     
+    </script>   
 </body>
 </html>
