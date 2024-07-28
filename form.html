@@ -11,30 +11,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Tealeaf Disease Classification</title>
-    <style>
+     <style>
        .html,body{
             overflow-x: hidden;
-            color: rgb(250, 150, 0);
-            background: #01330c;
+            color: rgb(1, 48, 12);
+            background: linear-gradient(90deg, rgb(235, 255, 235) 0%, rgb(255, 245, 200) 100%);
         }
         .nav-link {
-            color: rgb(250, 150, 0);
+            color: rgb(250, 200, 0, 1.25);
             font-size: larger;
             transition: color 0.5s;
             font-family: 'Ubuntu', Calibri;
         }
 
         .nav-link:hover {
-            color: white;
+            color: rgba(250, 200, 0, 0.75);
         }
 
         .navbar {
             background:rgb(1, 48, 12);
-            box-shadow: 10px 10px 10px rgba(250, 150, 0, 0.2);
-        }
-
-        .navbar:hover{
-            box-shadow: 10px 10px 10px rgba(250, 150, 0, 0.3);
         }
 
         .navbar-nav {
@@ -57,18 +52,14 @@
         .footer {
             background:rgb(1, 48, 12);
             padding: 5px 0px 5px 0px;
-            box-shadow: 0 0 20px rgba(250, 150, 0, 0.4);
             text-align: center;
-            color: rgb(250, 150, 0);
+            color: rgb(250, 200, 0);
             font-size: 24px;
             width: 100%;
             position: relative;
             font-family: 'Ubuntu', Calibri;
         }
 
-        .footer:hover{
-            box-shadow: 0 0 20px rgba(250, 150, 0, 0.8);
-        }
 
         .about {
             font-family: 'Ubuntu', Calibri;
@@ -94,23 +85,22 @@
         }
 
         .condition-link {
-            color: rgb(250, 150, 0);
+            color: rgb(1, 48, 12);
             text-decoration: none;
             font-size: large;
             text-align: center;
         }
 
         .condition-link:hover {
-            color: whitesmoke;
+            font-weight: bold;
         }
         .upload-container {
             background:rgb(1, 48, 12);
             padding: 20px;
             border-radius: 20px;
             text-align: center;
-            color: rgb(250, 150, 0);
+            color: rgb(250, 200, 0);
             font-family: 'Ubuntu', Calibri;
-            box-shadow: 0 0 50px rgba(250, 150, 0, 0.4);
             width: 800px;
             height: 600px;
             margin-bottom: 30px;
@@ -118,10 +108,6 @@
             flex-direction: column;
             justify-content: flex-end; 
             align-items: center;
-        }
-
-        .upload-container:hover{
-            box-shadow: 0 0 50px rgba(250, 150, 0, 0.8);
         }
 
         .upload-container form {
@@ -138,23 +124,23 @@
         }
 
         .upload-container button {
-            background-color: rgb(250, 150, 0);
-            color: whitesmoke;
+            background-color: rgb(250, 200, 0);
+            color: rgb(1, 48, 12);
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
-            opacity: 0.75;
-        }
-
-        .upload-container button:hover {
             opacity: 1.25;
         }
 
+        .upload-container button:hover {
+            opacity: 0.75;
+        }
+
         #predictionResult{
-            color: rgb(250, 150, 0);
+            color: rgb(250, 200, 0);
             margin-top: 20px;
         }
         
