@@ -16,38 +16,34 @@ async def form():
         html_content = f.read()
     return HTMLResponse(content=html_content)
 
-preprocess_input = tf.keras.applications.mobilenet_v2.preprocess_input
-img_height, img_width = 224, 224
-base_model = tf.keras.applications.MobileNetV2(input_shape=(img_height, img_width, 3),
-                                               include_top=False,
-                                               weights='imagenet')
+base_model = tf.keras.applications.EfficientNetV2B1(input_shape=(224, 224, 3),
+                                                    include_top=False,
+                                                    pooling='avg',
+                                                    classifier_activation='softmax',
+                                                    weights='imagenet')
 base_model.trainable = False
-global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 
-svm_model = joblib.load('svm_mnv2.joblib')
+svm_model = joblib.load('svm_env2.joblib')
 label_encoder = joblib.load('label_encoder.joblib')
 
-class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Healthy', 'Red leaf spot',
+class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Red leaf spot',
                'White spot']
 
 logging.basicConfig(level=logging.INFO)
+
 
 def extract_features(img):
     start_time = time.time()
     img_array = np.array(img.resize((img_height, img_width)))
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = preprocess_input(img_array)
-
     features_start_time = time.time()
     features = base_model.predict(img_array)
-    features = global_average_layer(features).numpy()
     end_time = time.time()
-
     logging.info(f"Image preprocessing time: {features_start_time - start_time} seconds")
     logging.info(f"Feature extraction time: {end_time - features_start_time} seconds")
     logging.info(f"Total extraction time: {end_time - start_time} seconds")
-
     return features
+
 
 @app.post('/predict')
 async def predict(file: UploadFile = File(...)):
@@ -65,6 +61,6 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-
+        
 if __name__ == "__main__":
     uvicorn.run(app,host="0.0.0.0", port=8000)
