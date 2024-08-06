@@ -16,7 +16,8 @@ async def form():
         html_content = f.read()
     return HTMLResponse(content=html_content)
 
-base_model = tf.keras.applications.EfficientNetV2B1(input_shape=(224, 224, 3),
+img_height, img_width = 224, 224
+base_model = tf.keras.applications.EfficientNetV2B1(input_shape=(img_height, img_width, 3),
                                                     include_top=False,
                                                     pooling='avg',
                                                     classifier_activation='softmax',
