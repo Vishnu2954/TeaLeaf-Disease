@@ -25,7 +25,6 @@ base_model = tf.keras.applications.EfficientNetV2B1(input_shape=(img_height, img
 base_model.trainable = False
 
 svm_model = joblib.load('svm_env2.joblib')
-label_encoder = joblib.load('label_encoder.joblib')
 
 class_names = ['Anthracnose', 'Algal leaf', 'Bird eye spot', 'Brown blight', 'Gray light', 'Red leaf spot',
                'White spot']
@@ -55,8 +54,7 @@ async def predict(file: UploadFile = File(...)):
         features = extract_features(img)
         logging.info("Making prediction")
         prediction = svm_model.predict(features)
-        predicted_index = int(prediction[0])
-        class_name = class_names[predicted_index]
+        class_name = class_names[prediction[0]]
         logging.info(f"Prediction complete: {class_name}")
         return {'predicted_class': class_name}
     except Exception as e:
