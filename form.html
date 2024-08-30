@@ -2,313 +2,337 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <title>Tealeaf Disease Classification</title>
-     <style>
-       .html,body{
-            overflow-x: hidden;
-            color: rgb(1, 48, 12);
-            background: linear-gradient(90deg, rgb(225, 255, 225) 0%, rgb(255, 245, 215) 100%);
-        }
-        .nav-link {
-            color: rgb(250, 200, 0, 1.25);
-            font-size: larger;
-            transition: color 0.5s;
-            font-family: 'Ubuntu', Calibri;
+    <title>Tea Leaf Disease Classification</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>  
+         :root {
+            --primary-color: #263507;
+            --accent-color: #ffffff;
+            --secondary-color: #6A9113;
+            --light-bg: #e8fedc;
+            --hover-color: #c5dfb2;
         }
 
-        .nav-link:hover {
-            color: rgba(250, 200, 0, 0.75);
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            overflow-x: hidden;
         }
 
         .navbar {
-            background:rgb(1, 48, 12);
+            background-color: var(--primary-color);
+            backdrop-filter: blur(10px);
         }
 
-        .navbar-nav {
+        .navbar-brand,
+        .nav-link {
+            color: var(--accent-color) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item {  
+            font-size: large;
+            margin-left: 1rem; 
+        } 
+
+        .nav-link:hover {
+            color: var(--hover-color) !important;
+        }
+
+        .hero-section {
+            background: url('https://images.unsplash.com/photo-1582350513425-f446ba96d1f1') no-repeat center center;
+            background-size: cover;
+            min-height: 60vh;
             display: flex;
-            align-items: left;
-        }
-
-        .navbar-nav.me-auto {
-            margin-right: auto;
-        }
-
-        .navbar-nav.ms-auto {
-            margin-left: auto;
-        }
-
-        .navbar-nav .nav-item {
-            margin-right: 10px;
-        }
-
-        .footer {
-            background:rgb(1, 48, 12);
-            padding: 5px 0px 5px 0px;
-            text-align: center;
-            color: rgb(250, 200, 0);
-            font-size: 24px;
-            width: 100%;
+            align-items: center;
+            justify-content: center;
             position: relative;
-            font-family: 'Ubuntu', Calibri;
         }
 
-
-        .about {
-            font-family: 'Ubuntu', Calibri;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(60deg, var(--primary-color) 0%, var(--secondary-color) 100%);
         }
 
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            position: relative;
+            z-index: 1;
         }
 
-        .fade-in.loaded {
-            opacity: 1;
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 1em;
+        .features {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
         }
 
-        td {
-            padding: 1em;
+        .conditions{
+            margin-bottom: 50px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .upload-container {
+            background: rgba(60, 100, 25, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 77, 64, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .upload-btn {
+            background-color: var(--primary-color);
+            color: #f4ffdd;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            transform: translateY(3px);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .condition-link {
-            color: rgb(1, 48, 12);
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--hover-color);
+            color: var(--primary-color);
+            border-radius: 20px;
             text-decoration: none;
-            font-size: large;
-            text-align: center;
+            transition: all 0.3s ease;
         }
 
         .condition-link:hover {
-            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
         }
-        .upload-container {
-            background:rgb(1, 48, 12);
-            padding: 20px;
-            border-radius: 20px;
+
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            padding: 1rem 0;
             text-align: center;
-            color: rgb(250, 200, 0);
-            font-family: 'Ubuntu', Calibri;
-            width: 800px;
-            height: 600px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; 
-            align-items: center;
-        }
-
-        .upload-container form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            flex-grow: 1;
-            justify-content: flex-end; 
-        }
-
-        .upload-container input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        .upload-container button {
-            background-color: rgb(250, 200, 0);
-            color: rgb(1, 48, 12);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            opacity: 1.25;
-        }
-
-        .upload-container button:hover {
-            opacity: 0.75;
-        }
-
-        #predictionResult{
-            color: rgb(250, 200, 0);
-            margin-top: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                align-items: left;
-            }
-
-            .navbar-nav .nav-item {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-
-            .footer {
-                font-size: 18px;
-            }
-
-            .container {
-                padding: 0 10px;
-            }
-
-            table, iframe {
-                width: 100%;
-                height: auto;
-            }
-
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M0 1.75A.75.75 0 0 1 .75 1h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 1.75zM0 7.75A.75.75 0 0 1 .75 7h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 7.75zM0 13.75A.75.75 0 0 1 .75 13h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 13.75z"/>
-                    </svg>
-                </span>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">TeaLeaf AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+           <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="https://portfolio-o2yh.onrender.com/profile">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://portfolio-o2yh.onrender.com/projects">Projects</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="mailto:vishnu290504@gmail.com" target="_blank">
-                            <i class="far fa-envelope"></i>
-                        </a>
+                        <a class="nav-link" href="mailto:vishnu290504@gmail.com"><i class="far fa-envelope"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.linkedin.com/in/vishnu-kannabiran-5b87a824b/" target="_blank">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
+                        <a class="nav-link" href="https://www.linkedin.com/in/vishnu-kannabiran-5b87a824b/"><i class="fab fa-linkedin"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/Vishnu2954" target="_blank">
-                            <i class="fab fa-github"></i>
-                        </a>
+                        <a class="nav-link" href="https://github.com/Vishnu2954"><i class="fab fa-github"></i></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <h2 class="fade-in" style="text-align: center; margin-top: 30px; font-family: 'Ubuntu', Calibri;">Tea Leaf Disease Classification</h2>
-    <div class="container fade-in" style="font-family: 'Ubuntu', Calibri;">
-        <br></br>
-        <p style="text-align: center; font-size: larger;">
-        A LightWeight Enhanced Support Vector Machine (SVM) framework to predict seven distinct disease types. Specifically, the model can identify:
-        </p>
-        <br></br>
-        <div class="d-flex flex-wrap justify-content-center mb-4">
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Anthracnose" target="_blank">Anthracnose</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Algal+leaf" target="_blank">Algal leaf</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Bird+eye+spot" target="_blank">Bird eye spot</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Brown+Blight" target="_blank">Brown Blight</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Gray+Light" target="_blank">Gray light</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=Red+leaf+spot" target="_blank">Red leaf spot</a>
-                <a class="condition-link mx-2" href="https://www.google.com/search?q=White+spot" target="_blank">White spot</a>
-        </div><br></br>
-        <div class="d-flex justify-content-center">
-            <div class="upload-container">
-                <p style="font-size: 24px; margin-top: 10px;">Upload a Tea Leaf Image</p>
-                <form id="uploadForm" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="fileInput" class="form-control" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .png">
-                    <div id="imagePreviewContainer" style="display: none;">
-                        <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 300px;">
-                    </div>
-                    <div style="display: flex; gap: 25px; margin-bottom: 20px; margin-top: 20px;">
-                        <button type="button" onclick="chooseFile()">Upload</button>
-                        <button type="submit">Predict</button>
-                    </div>
-                <div id="predictionResult">
-                    <b style="font-size: large;" id="predictedClass"></b>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title"></h2><br>
+            <p class="hero-subtitle">Harnessing AI to protect your tea crops and ensure optimal yield</p>
+        </div>
+    </section>
+
+    <section class="features py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-leaf fa-2x mb-3"></i>
+                    <h3>Leaf Disease Analysis</h3>
+                    <p>Analyze your tea plant leaves and identify 7 different diseases with 93% accuracy.</p>
                 </div>
-            </form>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-microscope fa-2x mb-3"></i>
+                    <h3>Disease Prediction</h3>
+                    <p>Our Enhanced AI model can detect and classify 7 common tea leaf diseases.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-medkit fa-2x mb-3"></i>
+                    <h3>Treatment Guidance</h3>
+                    <p>Get recommended treatments and preventive measures for the identified tea leaf disease.</p>
+                </div>
             </div>
         </div>
-        <h3 class="fade-in" style="text-align: center; margin-top: 20px; font-family: 'Ubuntu', Calibri;">Description</h3><br></br>
-        <p style="font-size: large; text-decoration: underline;"><a class="condition-link mx-2" href="https://www.kaggle.com/datasets/shashwatwork/identifying-disease-in-tea-leafs/data" target="_blank">Link to Dataset</a></p>
-        <p style="font-size: large; padding-left: 10px;">The model incorporates a Support Vector Machine learning model integrated with the EfficientNetV2B1 transfer learning architecture for image feature extraction with an accuracy of around <b>92.64%</b></p>
-        <p style="font-size: large; padding-left: 10px;"> This shows an improvement of approximately <b>0.17%</b> over<a class="condition-link mx-2" style="text-decoration: underline;" href="https://www.sciencedirect.com/science/article/pii/S2405844024024964#:~:text=Deep%20learning%20methods%20were%20used,to%20help%20with%20feature%20categorization." target="_blank">Qidong Heng's model</a>, while also proving to be more efficient in terms of computational complexity</p>
-        <p style="font-size: large; font-weight: bold; padding-left: 10px;"> Performance of the model:</p>  
-        <img src="https://vishnu2954.github.io/TeaLeaf-Disease/images/Screenshot%202024-08-07%20153324.png" height="250px" width="1000px"><br></br>
-        <p style="font-size: large; font-weight: bold; padding-left: 10px;"> Confusion Matrix:</p>  
-        <img src="https://vishnu2954.github.io/TeaLeaf-Disease/images/Screenshot%202024-08-07%20153530.png" height="500px" width="500px"> 
-        <br></br><br></br>
-    </div>
-    <div class="footer">
-        <p>COPYRIGHTS&copy2024</p>
-    </div>
+    </section>
+    <section class="conditions py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Detectable Diseases</h2>
+            <div class="text-center">
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Anthracnose+in+tea+leaves" target="_blank">Anthracnose</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Algal+leaf+in+tea" target="_blank">Algal leaf</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Bird+eye+spot+in+tea+leaves" target="_blank">Bird eye spot</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Brown+Blight+in+tea" target="_blank">Brown Blight</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Gray+Light+in+tea+leaves" target="_blank">Gray light</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=Red+leaf+spot+in+tea" target="_blank">Red leaf spot</a>
+                <a class="condition-link mx-2 mb-2" href="https://www.google.com/search?q=White+spot+in+tea+leaves" target="_blank">White spot</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container my-5">
+        <section id="classifier" class="mb-5">
+            <h2 class="section-title text-center">Disease Classifier</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="upload-container">
+                        <form id="uploadForm" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="fileInput" class="form-label">Upload a Tea Leaf Image</label>
+                                <input type="file" class="form-control" id="fileInput" name="file" accept=".jpg, .jpeg, .png" onchange="previewImage(event)">
+                            </div>
+                            <div id="imagePreviewContainer" class="mb-3 text-center" style="display: none;">
+                                <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="upload-btn">Predict Disease</button>
+                            </div>
+                        </form>
+                        <div id="predictionResult" class="mt-3 text-center" style="display: none;">
+                            <h4>Prediction Result:</h4>
+                            <p id="predictedClass" class="fw-bold fs-5"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><br>
+
+        <section id="performance" class="mb-5">
+            <h2 class="section-title text-center">About Our Project</h2>
+            <p class="text-center">
+                Our LightWeight Enhanced Support Vector Machine (SVM) framework uses EfficientNetV2B1 Transfer Learning model architecture for feature extraction, thereby predicting seven distinct disease types in tea leaves with an accuracy of <strong>92.64%</strong>. This represents an improvement of approximately <strong>0.17%</strong> over previous models, while also proving more computationally efficient.
+            </p><br>
+            <h2 class="section-title text-center">Model Performance</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h4 class="text-left mb-3">Performance Metrics</h4>
+                    <img src="https://vishnu2954.github.io/TeaLeaf-Disease/images/Screenshot%202024-08-07%20153324.png" alt="Performance Metrics" class="img-fluid mb-4 rounded shadow">
+                    
+                    <h4 class="text-left mb-3">Confusion Matrix</h4>
+                    <img src="https://vishnu2954.github.io/TeaLeaf-Disease/images/Screenshot%202024-08-07%20153530.png" alt="Confusion Matrix" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                    <p>&copy; 2024 TeaLeaf AI. All rights reserved.</p>
+                </div>
+            </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const fadeInElements = document.querySelectorAll('.fade-in');
-            fadeInElements.forEach((element) => {
-                element.classList.add('loaded');
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            const hero = document.querySelector('.hero-title');
+            let text = "Tea Leaf Disease Classifier";
+            let index = 0;
 
-            window.chooseFile = function() {
-                document.getElementById('fileInput').click(); 
-            };
-
-            window.previewImage = function(event) {
-                var input = event.target;
-                var preview = document.getElementById('imagePreview');
-                var container = document.getElementById('imagePreviewContainer');
-
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        container.style.display = 'block';
-                    };
-
-                    reader.readAsDataURL(input.files[0]); 
+            function typeWriter() {
+                if (index < text.length) {
+                    hero.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
                 }
-            };
+            }
 
-            const form = document.getElementById('uploadForm');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(form);
+            typeWriter();
+        });
 
-                fetch('/predict', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error('Prediction error:', data.error);
-                    } else {
-                        const predictedClass = data.predicted_class;
-                        document.getElementById('predictedClass').innerText = predictedClass;
-                        document.getElementById('predictionResult').style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+            const container = document.getElementById('imagePreviewContainer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Prediction error:', data.error);
+                } else {
+                    const predictedClass = data.predicted_class;
+                    document.getElementById('predictedClass').innerText = predictedClass;
+                    document.getElementById('predictionResult').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
         });
-    </script>   
+    </script>
 </body>
 </html>
